@@ -78,6 +78,12 @@ class BaseRelatedWidgetWrapper(WidgetWrapperMixin, forms.Widget):
         self.widget.choices = self.choices
 
         url_params = "%s=%s" % (IS_POPUP_VAR, 1)
+
+        # CHAWES -- HAAACK
+        # Gets around this error: TypeError: render() got an unexpected keyword argument 'renderer'
+        kwargs.pop('renderer', None)
+        #
+
         context = {
             'widget': self.widget.render(name, value, *args, **kwargs),
             'name': name,
